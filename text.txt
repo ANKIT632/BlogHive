@@ -1,0 +1,17 @@
+- app.set() use for configuration
+
+- npm i nodemon -D (that means develop dependency which means if we are deploy then dev dependency are not install its is reduce project size).
+
+-  Note
+"start":"node index.js",  
+"dev": "nodemon index.js",
+
+
+- enum :
+  enum is a Array which is comfirm  add role value only ['USER','ADMIN'] if add other then mongo show error. 
+
+ role:{
+   type:String,
+   enum:['USER','ADMIN'],
+   default:"USER"
+ }
