@@ -15,3 +15,6 @@
    enum:['USER','ADMIN'],
    default:"USER"
  }
+
+ => const User=mongoose.model('user',userSchema) :
+    here user is model name  and  Mongoose will, by default, create a collection in the database with the plural form of 'user', which would typically be 'users'. ;
