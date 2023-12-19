@@ -1,7 +1,10 @@
 const path = require('path');
 const express = require('express');
 const moongose=require('mongoose');
-const UserRoute=require('./routes/user.js')
+const userRoute=require('./routes/user.js');
+const blogRoute=require('./routes/blog.js')
+const cookieParser = require('cookie-parser');
+const {checkForAuthenticationCookies} =require('./middleware/authentication.js')
 
 
 const app = express();
@@ -15,12 +18,17 @@ moongose.connect('mongodb://0.0.0.0:27017/bloghive')
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
+
+//middelware
 app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
+app.use(checkForAuthenticationCookies("token"));
 
 //route
-app.get('/', (req, res) => res.render("home"));
+app.get('/', (req, res) => res.render("home",{user:req.user}));
 
-app.use('/user',UserRoute);
+app.use('/user',userRoute);
+app.use('/blog',blogRoute);
 
 
 

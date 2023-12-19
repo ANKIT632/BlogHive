@@ -1,80 +1,82 @@
-const {createHmac,randomBytes}=require('crypto');
-const {Schema, model}= require('mongoose');
+const { createHmac, randomBytes } = require('crypto');
+const { Schema, model } = require('mongoose');
+const { createTokenForUser } = require('../services/authentication')
 
-const userSchema=new Schema({
- firstName:{
-    type:String,
-    require:true,
- },
- email:{
-    type:String,
-    require:true,
-    unique:true,
- },
- salt:{
-    type:String,
-   
- },
- password:{
-    type:String,
-    require:true,
- },
+const userSchema = new Schema({
+   firstName: {
+      type: String,
+      require: true,
+   },
+   email: {
+      type: String,
+      require: true,
+      unique: true,
+   },
+   salt: {
+      type: String,
 
- profileImageURL:{
-    type:String,
-    default:'/images/DefaultProfileImg.png',
- },
- role:{
-   type:String,
-   enum:['USER','ADMIN'],
-   default:"USER"
- }
+   },
+   password: {
+      type: String,
+      require: true,
+   },
 
-},{timestamps:true});
+   profileImageURL: {
+      type: String,
+      default: '/images/DefaultProfileImg.png',
+   },
+   role: {
+      type: String,
+      enum: ['USER', 'ADMIN'],
+      default: "USER"
+   }
+
+}, { timestamps: true });
 
 
 // it is middleware run before save user login.
-userSchema.pre("save",function(next){
-   const user=this;   // this follow curr user.
+//hash the password.
+userSchema.pre("save", function (next) {
+   const user = this;   // this follow curr user.
 
-   if(!user.isModified('password')) return ;
+   if (!user.isModified('password')) return;
 
-   const salt =randomBytes(16).toString();
-   const hashedPassword= createHmac('sha256',salt)
-   .update(user.password)
-   .digest('hex');
+   const salt = randomBytes(16).toString();
+   const hashedPassword = createHmac('sha256', salt)
+      .update(user.password)
+      .digest('hex');
 
    // set into curr user
-   this.salt=salt;
-   this.password=hashedPassword;
+   this.salt = salt;
+   this.password = hashedPassword;
    next();
 });
 
-userSchema.static("matchPassword",async function(email,password){
-try{ console.log("email",email);
-    const user=await this.findOne({email});
-    if(!user) throw new Error('user Not found');
 
-    const salt=user.salt;
-    const hashedPassword=user.password;
+userSchema.static("matchPasswordAndGenerateToken", async function (email, password) {
+  
+      
+      const user = await this.findOne({ email });
 
-    const userProvidedHash= createHmac('sha256',salt)
-    .update(password)
-    .digest('hex');
+      if (!user) 
+      throw new Error('user Not found');
+
+      const salt = user.salt;
+      const hashedPassword = user.password;
+
+      const userProvidedHash = createHmac('sha256', salt)
+         .update(password)
+         .digest('hex');
+
+      if (hashedPassword !== userProvidedHash)
+         throw new Error("Incorrect password");
+
+      const token = createTokenForUser(user);
+      return token;
    
-    if (hashedPassword!==userProvidedHash) 
-    throw new Error("Incorrect password");
+});
 
-    return user;
-}
+const User = model('user', userSchema);
 
-catch(error){
-   console.log(error);
-}
-
-})
-
-const User=model('user',userSchema);
-
-module.exports=User;
+module.exports = User;
 
