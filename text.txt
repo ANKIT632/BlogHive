@@ -18,3 +18,31 @@
 
  => const User=mongoose.model('user',userSchema) :
     here user is model name  and  Mongoose will, by default, create a collection in the database with the plural form of 'user', which would typically be 'users'. ;
+
+
+ => .populate:
+ Blog.findById(req.params.id).populate("createdBy");
+
+  - by using populate it expand the from user by using createdBy it is possibile because we create the relationship
+    between user and blog by using  ' Ref:user in blog model '
+
+ blog {
+  _id: new ObjectId('6583108f6fb695384c333dd4'),
+  title: 'crypto',
+  body: 'oh',
+  coverImageURL: '/uploads/1703088271880_nodeDep.png',
+  createdBy: {
+    _id: new ObjectId('65804c373e6e7eb7a30c39ae'),
+    email: 'user@example.com',
+    password: '52d33b7b30674dbc8717bc9f330145f8230493f3820ebb59ec3969880a90f36a',
+    profileImageURL: '/images/DefaultProfileImg.png',
+    role: 'USER',
+    createdAt: 2023-12-18T13:42:15.835Z,
+    updatedAt: 2023-12-18T13:42:15.835Z,
+    salt: '0�{�[3��"Vg �1�\x07',
+    __v: 0
+  },
+  createdAt: 2023-12-20T16:04:31.915Z,
+  updatedAt: 2023-12-20T16:04:31.915Z,
+  __v: 0
+}

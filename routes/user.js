@@ -20,7 +20,7 @@ router.get('/logout',(req,res)=>{
 
 router.post('/signup', async (req, res) => {
     const { fullName, email, password } = req.body;
-    await User.create({
+    await User.create({ 
         fullName,
         email,
         password,
@@ -40,7 +40,6 @@ router.post('/signin', async (req, res) => {
         return res.cookie('token', token).redirect("/");
     }
     catch(error) {
-        console.log("err catch");
         return res.render("signin", { 
             error: "Incorrect Email or Password",
         });
