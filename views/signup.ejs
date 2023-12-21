@@ -4,12 +4,13 @@
 <head>
     <%- include('./partials/head')%>
         <title>SignUp</title>
+        <link rel="stylesheet" href="/css/signUpAndSignin.css">
 </head>
 
 <body>
     <%- include('./partials/nav')%>
 
-        <div class="container mt-4" style="width: 500px;">
+        <div class="container mt-4 mainContainer">
             <form action="/user/signup" method="post">
                 <div class="mb-3 " >
                     <label for="fullName" class="form-label">Full Name</label>

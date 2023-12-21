@@ -2,49 +2,56 @@
 <html lang="en">
 
 <head>
-    <%- include('./partials/head')%>
-        <title>blog</title>
+  <%- include('./partials/head')%>
+    <title>Blog</title>
+    <link rel="stylesheet" href="/css/blog.css">
 </head>
 
 <body>
-   
-    <%- include('./partials/nav')%>
-    <div class="container mt-4">
-      
-        <h1><%= blog?.title %></h1>
-        <img src="<%=blog?.coverImageURL%>" width="500px"/>
-        <pre><%=blog?.body%></pre>
-  
 
-      
-        <img src="<%=blog?.createdBy.profileImageURL%>" width="60px" style="height: 50px;"/>
-        <h6><%= blog?.createdBy.fullName %></h6>
-         <br>
-        <h4>comment</h4>
-        <hr>
-        <% comments.forEach(comment =>{ %>  
-            
-      <div >
-          <img src="<%=comment?.createdBy.profileImageURL%>" class="card-img-top" width="50px" alt="...">
-          <% comment?.createdBy.fullName%>
-          <pre>comments.contents</pre>
+  <%- include('./partials/nav')%>
+    <div class="container mt-4">
+
+      <h4>
+        <%= blog?.title %> :
+      </h4>
+      <img class="blogImage" src="<%=blog?.coverImageURL%>"/>
+      <hr>
+      <pre><%=blog?.body%></pre>
+      <hr>
+   <div class="blogUserContainer">
+      <img src="<%=blog?.createdBy.profileImageURL%>" width="60px" style="height: 50px;" />
+      <br>
+      <strong>
+        createdBy : 
+      </strong> <%= blog?.createdBy.fullName %>
+    </div>
+   
+      <hr>
+      <h4>comments(<%=locals?.comments.length%>)</h4>
+
+      <% comments.forEach(comment=>{ %>
+
+        <div>
+          <img src="<%=comment?.createdBy.profileImageURL%>" class="card-img-top" style="height: 50px; width: 50px;"
+            alt="...">
+          <%=comment?.createdBy.fullName%>
+            <pre><%=comment?.content%></pre>
         </div>
-       
+
         <% }) %>
 
-       <%if(locals.user) {%>
-        <form action="/comment/blogId" method="post" >
-            <div class="mb-3">
-              <label for="comment" class="form-label"></label>
-              <input type="text" class="form-control" id="comment"name="content" placeholder="Enter your comment">
-             
-          </div>
-         
-        
-          <button type="submit" class="btn btn-primary">Add</button>
+          <%if(locals.user) {%>
+            <hr>
+            <form action="/blog/comment/<%=blog._id%>" method="post">
+              <div class="mb-3">
+                <label for="comment" class="form-label">comment here :</label>
+                <input type="text" class="form-control" id="comment" name="content" placeholder="Enter your comment">
+              </div>
+              <button type="submit" class="btn btn-primary">Add</button>
             </form>
 
-          <% } %>  
+            <% } %>
     </div>
     <%- include('./partials/script')%>
 

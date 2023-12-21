@@ -4,27 +4,53 @@
 <head>
     <%- include('./partials/head')%>
         <title>Signin</title>
+        <link rel="stylesheet" href="/css/signUpAndSignin.css">
 </head>
 
 <body>
     <%- include('./partials/nav')%>
 
-    <div class="container mt-4 " style="width: 500px; ">
-        <form action="/user/signin" method="post" >
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1"name="email">
-           
+     
+    <% if(locals.error) {%>
+        <div class="container mt-1 mainContainer" >
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%=locals.error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
         </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-        </div>
-      
-        <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-    </div>
-    <%- include('./partials/script')%>
+            
+        <%}%>
+
+        <%if(locals.isUserAlreadyExist){%>
+            <div class="container mt-1">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <%=isUserAlreadyExist %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+            </div>
+            <% } %>
+
+                <div class="container mt-4 mainContainer">
+
+
+                    <form action="/user/signin" method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <%- include('./partials/script')%>
 
 </body>
 

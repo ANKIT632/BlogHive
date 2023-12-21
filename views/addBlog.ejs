@@ -4,26 +4,28 @@
 <head>
     <%- include('./partials/head')%>
         <title>Add new Blog</title>
+        <link rel="stylesheet" href="/css/addBlog.css">
 </head>
 
 <body>
     <%- include('./partials/nav')%>
 
-        <div class="container mt-3">
+        <div class="container mt-3 addBlogContainer" >
             <form action="/blog" method='post' enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" id="title"/>
+                    <input type="text" name="title" class="form-control" id="title" />
                 </div>
 
                 <div class="mb-3">
                     <label for="textarea" class="form-label">Body</label>
-                    <textarea type="text" class="form-control" name="body" placeholder="write a blog here" id="textarea"></textarea>
+                    <textarea type="text" class="form-control" name="body" placeholder="write a blog here"
+                        id="textarea"></textarea>
                 </div>
-                 
-              
+
+
                 <div class="mb-3">
-                    <label for="coverImage"  class="form-label">cover Image</label>
+                    <label for="coverImage" class="form-label">cover Image</label>
                     <input type="file" name="coverImage" class="form-control" id="coverImage" />
                 </div>
 

@@ -2,29 +2,35 @@
 <html lang="en">
 
 <head>
-    <%- include('./partials/head')%>
-        <title>Homepage</title>
+  <%- include('./partials/head')%>
+ 
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
-   
-    <%- include('./partials/nav')%>
-    <div class="container mt-3">
-      <div class="row row-cols-4">
-        <% blogs.forEach(blog =>{ %>  
-          <div class="col">
-    <div class="card mb-3 col" style="width: 18rem;">
-        <img src="<%=blog.coverImageURL%>" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"><%=blog.title  %></h5>
-          <p class="card-text"><%=blog.body%></p>
-          <a href="/blog/<%=blog._id%>" class="btn btn-primary">view</a>
-        </div>
+
+  <%- include('./partials/nav')%>
+    <div class=" mt-2">
+      <div class="mainCardContainer">
+        <% blogs.forEach(blog=>{ %>
+            <div class="cardContainer" >
+              <img class="cardImg" src="<%=blog.coverImageURL%>"  alt="...">
+              <div class="card-body">
+                <h6 class="card-title">
+                  <%=blog.title.slice(0,20)%> 
+                </h6>
+              
+                  <%=blog.body.slice(0,40)%>..
+                  <br>
+              
+                <a href="/blog/<%=blog._id%>" ><button class="btnStyle">view</button></a>
+          
+              </div>
+          </div>
+
+          <% }) %>
       </div>
-    </div>
-     
-      <% }) %>
-    </div> 
     </div>
 
     <%- include('./partials/script')%>

@@ -1,0 +1,19 @@
+.blogImage{
+    height: 250px;
+    width: 500px;
+}
+
+
+
+@media (max-width:524px){
+    .blogImage{
+        width: 90vw;
+    }
+}
+
+@media (max-width:400px){
+    .blogImage{
+        height: 150px;
+        width: 90vw;
+    }
+}

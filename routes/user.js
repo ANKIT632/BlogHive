@@ -20,15 +20,19 @@ router.get('/logout',(req,res)=>{
 
 router.post('/signup', async (req, res) => {
     const { fullName, email, password } = req.body;
+    var isUserAlreadyExist="";
+   try{
     await User.create({ 
         fullName,
         email,
         password,
     });
+    }
+    catch(error){
+        isUserAlreadyExist="User is Already exist";
+    }
 
-
-
-    return res.redirect("/");
+    return res.render('signin',{isUserAlreadyExist});
 })
 
 router.post('/signin', async (req, res) => {
