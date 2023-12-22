@@ -41,5 +41,5 @@ app.use('/user', userRoute);
 app.use('/blog', blogRoute);
 
 
-
+//server
 app.listen(PORT, () => console.log(`server Started at PORT: ${PORT}`));
