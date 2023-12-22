@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 const express = require('express');
 const moongose = require('mongoose');
 const userRoute = require('./routes/user.js');
@@ -10,17 +11,17 @@ const Blog = require('./models/blog.js');
 
 
 const app = express(); 
-const PORT = 8000;
+const PORT=process.env.PORT;
 
 //connect DB
-moongose.connect('mongodb://0.0.0.0:27017/bloghive')
-    .then((e) => console.log("conn db"));
+moongose.connect(process.env.MONGO_URL)
+    .then((e) => console.log("conn db"))
+    .catch((err)=>{ console.log("db not connect")});
 
 //config.
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-     
 //middelware
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

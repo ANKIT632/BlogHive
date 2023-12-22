@@ -5,13 +5,13 @@
   <%- include('./partials/head')%>
     <title>Blog</title>
     <link rel="stylesheet" href="/css/blog.css">
+    <link rel="icon" href="/icon/blogIcon.png">
 </head>
 
 <body>
 
   <%- include('./partials/nav')%>
     <div class="container mt-4">
-
       <h4>
         <%= blog?.title %> :
       </h4>
@@ -30,7 +30,7 @@
       <hr>
       <h4>comments(<%=locals?.comments.length%>)</h4>
 
-      <% comments.forEach(comment=>{ %>
+      <%comments.reverse().forEach(comment=>{ %>
 
         <div>
           <img src="<%=comment?.createdBy.profileImageURL%>" class="card-img-top" style="height: 50px; width: 50px;"
