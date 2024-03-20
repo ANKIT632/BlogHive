@@ -8,7 +8,8 @@
 
 
 - enum :
-  enum is a Array which is comfirm  add role value only ['USER','ADMIN'] if add other then mongo show error. 
+  enum is a Array which is con
+  firm  add role value only ['USER','ADMIN'] if add other then mongo show error. 
 
  role:{
    type:String,
@@ -48,3 +49,21 @@
 }
 
 => process.env.PORT : give post number dynamically.
+
+
+---------In user.js-----
+=>   role: {
+      type: String,
+      enum: ['USER', 'ADMIN'],
+      default: "USER"
+   }
+
+   enum means we add 'USER' OR 'ADMIN' 
+
+- for using import export we add in json : "type":"module"
+
+=>  salt: {
+      type: String,
+   }
+   - salt is key by using hash the user password, for every user is unique.
+

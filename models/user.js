@@ -42,7 +42,7 @@ userSchema.pre("save", function (next) {
    if (!user.isModified('password')) return;
 
    const salt = randomBytes(16).toString();
-   const hashedPassword = createHmac('sha256', salt)
+   const hashedPassword = createHmac('sha256', salt) // hashPassword
       .update(user.password)
       .digest('hex');
 
@@ -52,7 +52,7 @@ userSchema.pre("save", function (next) {
    next();
 });
 
-
+// matchPasswordAndGenerateToken fun name
 userSchema.static("matchPasswordAndGenerateToken", async function (email, password) {
   
       
