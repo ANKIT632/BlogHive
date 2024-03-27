@@ -21,3 +21,8 @@ function checkForAuthenticationCookies(cookieName){
 module.exports={
     checkForAuthenticationCookies,
 }
+
+
+
+//   req.user=userPayload;  
+// note req.user is create dynamically user property and assign to req obj

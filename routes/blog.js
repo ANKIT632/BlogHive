@@ -21,15 +21,18 @@ const router = Router();
 
 router.get('/add-new', (req, res) => {
     return res.render('addBlog', {
-        user: req.user,
+        user: req.user,  // req.user set in authentication.js in middlewareFolder.
     })
 })
 
 router.get('/:id',async(req,res)=>{
+
     const blog=await Blog.findById(req.params.id).populate("createdBy");
     const comments=await Comment.find({blogId:req.params.id}).populate("createdBy");
+   console.log(blog);
+    console.log(comments);
     return res.render("blog",{
-        user:req.user,
+        user:req.user,   // req.user set in authentication.js in middlewareFolder.
         blog,
         comments,
     })

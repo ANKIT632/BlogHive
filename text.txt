@@ -67,3 +67,28 @@
    }
    - salt is key by using hash the user password, for every user is unique.
 
+
+
+
+
+=> app.use(express.urlencoded({ extended: false }));
+
+- app: This refers to an instance of the Express application.
+- .use(): This is an Express method used to mount middleware.
+- express.urlencoded(): This is middleware provided by the Express framework for parsing URL-encoded data in the body of HTTP requests.
+
+- { extended: false }: This is an option passed to express.urlencoded() middleware. When extended is set to false, the querystring library (a Node.js core module) is used to parse the URL-encoded data, and the resulting object contains only key-value pairs where the value can be a string or array. When extended is set to true, the qs library (a third-party library for querystring parsing) is used, which allows for more complex data structures in the URL-encoded data.
+
+
+or 
+
+=> const qs = require('qs');
+
+// Middleware to parse URL-encoded data with extended option set to true
+
+app.use(express.urlencoded({ extended: true }));
+
+- When setting { extended: true }, Express will use the qs library instead of the built-in querystring module. This allows for parsing more complex data structures in the URL-encoded data, such as nested objects and arrays.
+
+
+- qs library is actually not explicitly used. Express internally uses the qs library when the extended option is set to true.

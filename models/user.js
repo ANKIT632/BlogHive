@@ -61,6 +61,7 @@ userSchema.static("matchPasswordAndGenerateToken", async function (email, passwo
       if (!user) 
       throw new Error('user Not found');
 
+      // key
       const salt = user.salt;
       const hashedPassword = user.password;
 

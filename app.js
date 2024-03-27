@@ -31,15 +31,23 @@ app.use(express.static(path.resolve('./public')))
 //route
 app.get('/', async (req, res) => {
     const allBlogs = await Blog.find({});
+  
     res.render("home", {
         user: req.user,
         blogs: allBlogs,
     });
 
 });
+
 app.use('/user', userRoute);
 app.use('/blog', blogRoute);
 
 
 //server
 app.listen(PORT, () => console.log(`server Started at PORT: ${PORT}`));
+
+
+
+
+
+
